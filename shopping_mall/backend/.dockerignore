@@ -1,0 +1,4 @@
+# node의 버전이 전부 다르기때문에
+# 복사하지 않고 도커 안에서 yarn install
+node_modules
+dist
