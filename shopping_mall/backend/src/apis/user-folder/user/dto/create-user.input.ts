@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateUserInput {
   @ApiProperty({ example: 'john_doe123' }) // 예시 값 추가
@@ -26,4 +26,8 @@ export class CreateUserInput {
 
   @ApiProperty({ example: 'john.doe@example.com' }) // 예시 값 추가
   email: string;
+
+  // 파일 필드 추가
+  @ApiPropertyOptional({ type: 'file' })
+  file?: any;
 }

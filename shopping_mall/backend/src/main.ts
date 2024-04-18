@@ -15,9 +15,9 @@ async function bootstrap() {
 
   // 결제 cors 활성화(배포시에 url 변경)
   app.enableCors({
-    origin: 'http://127.0.0.1:5501', // 허용할 origin (url 확인하고 수정)
+    origin: 'http://localhost:3000', // 허용할 origin (url 확인하고 수정)
     methods: ['GET', 'POST'], // 허용할 HTTP 메서드
-    allowedHeaders: ['Content-Type', 'Authorization', 'x-apollo-operation-name'], // 허용할 헤더
+    allowedHeaders: ['Content-Type', 'Authorization'], // 허용할 헤더
     credentials: true, // 요청에서 자격 증명을 허용합니다.
   });
 
