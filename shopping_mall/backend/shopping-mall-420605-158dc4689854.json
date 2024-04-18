@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "shopping-mall-420605",
+  "private_key_id": "158dc4689854cffe7eba668165fd69e25cfb432f",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEugIBADANBgkqhkiG9w0BAQEFAASCBKQwggSgAgEAAoIBAQC/KzBDHdOkbqXS\n8vhnkDtbEfMAju9wxp9x7WcXlGv++EuIdmBziNEHi71JFka2zgxJpm7RoCMMPSoo\nl82Hsg/wCPX/klPdltrtk3JPO9oTUV3mrD2aMUASbdZunvbXUxZnaV4c2BSg9/AY\nYcZjbxs8xzdzei97bBlC1pX6VDGeNJnzZ48/l4LTr90XP06pRaUJPzI1Cs0/aKPS\nqil7OiBKc4ndAG2gRdOLYQsmL4p0LfGle+KHpMnON8V/erUhD1qEEL4mIYysRgq+\nehhLAa3sbkcJb4k+5J10VdxovTtkkjFJmMEGWuqWQ+CF3b4cKdumVk4+f36BwjX7\nraLjsE3TAgMBAAECggEAVnOMDFYhP4PQVuENKByIUyt/VrnNG5WfRpDDZdz3p+MW\nmXxbKvRs/zoZHEPIL+Rnlyj+hasjHmZMufXIezyxy23p/a1pYtTVZcof0Cgzezf5\nPJeY9jGelZb5eaZG3+KRx6tVZbrsPU1S1VvmMVJuIWLAN2dCsNCWbe0H/yBzHeVI\nekC/JRHKDVYpqXlVkLPGhTFU9PzHqc2zG5BX01QCEV2XtUVMeDFCFEtcov7KFGhc\nDSdCfSh2AXIPo1wkfMxt0v9hjAm1T2ke7j3qu4muz2kWsd99oHn8RCOy844OgO82\n3lfxE/ZGAhI6UYAlP0yDZYoQLtV+k7cZg7P3GLWGPQKBgQDpMfUg7OW0AMQTB0JX\neBatxP8j9Bx09kzL2rr03kg8BRCHp5sAz1ygMlBTLJJZTBEsFTd/JtHEDDxcNJ1t\nu7Ggz9WWd8HVpQbToLA+GY6skLOjyjJKRGaGPgjXxDgykwi6MuUuBPr3SVzj3G0r\nbIv40kqCc6LQAaz2mRRTydyHXwKBgQDR3RlCrr9F5d2yaCum7Qmj867sdLL2sjEk\nAh1Gkt26VO3NjwIM7dCneQeW1VqEVO8YjNkmXLeux/r6i3ad49/qibXPXrTEdpZq\nEA9nQYQfSp5esJyh13UAcA6ixnc9UYzaVd3HW/1stpzhds5KOqWh47uFBkvrNWiT\n7+G1KH9SDQKBgFoKcSTyc8sqFItoXSRa+R7FluJyCl7bD1ITNecAwRFzvysx+za3\n2oL8imljJ2sVZPgJhTEycwJo2xGbO0I4m+CE/2qm+RAeNWGXhRWlVqKpCMPwebSV\nbqTc5Rsy56QXg+IpbrZzM9gx2o0c+oYu1mkQAbcXIUGBtCBPgTrNEbqvAn9ECmsm\nM4HQJ7a5IQ0GEdQOU/NitnNPiHZmNklHmFZLEz4GZ1dC2dfMdHEBdirivKbITuIY\njfb/s9arZIwQpND0ObG4ifwRtmEOAib8U0GC4651BM3DqxdEDRCxtabzOn1wTGab\nPDfuB0bV0q8PYfRRiIRDnMcAe1BsplmHYpnlAoGAN4QSyIsRZDNo/q0p4NuNHTyl\nfaP00UxAMYNJkHrvQKoKWK6ixReVKjrRQjoWEMeitHIJbBErtVxQIl4Tw+cIavDx\nlVVXMzPf8ixdyeXhh3/fDRKw9RQam8L6IjgCZO0gwOpyxfvd+tYPaqwg5KxB4nyo\nlJWSLYx6iXhLHf5K/54=\n-----END PRIVATE KEY-----\n",
+  "client_email": "service-account-309@shopping-mall-420605.iam.gserviceaccount.com",
+  "client_id": "104833671352164385905",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/service-account-309%40shopping-mall-420605.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

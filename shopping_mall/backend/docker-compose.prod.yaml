@@ -1,0 +1,44 @@
+version: '3.7'
+
+services:
+  my-backend:
+    image: asia.gcr.io/utility-time-419409/my-backend-project-nestjs:0.0
+    platform: linux/x86_64
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    # volumes:
+    #   - ./src:/myfolder/src
+    # env_file:
+    #   - ./.env.prod
+    # ports:
+    #   - 3000:3000
+# 도커 그룹핑 하는 compose 설정파일
+# version: '3.7'
+
+# # 컴퓨터들(띄어쓰기 조심)
+# services:
+#   my-backend: # 컴퓨터이름
+#     build:
+#       context: . # 파일경로
+#       dockerfile: Dockerfile # 파일명
+#     # volumes:
+#     #   - ./src:/myfolder/src
+#     ports:
+#       - 3000:3000 # 포트 포워딩
+#     env_file:
+#       - ./.env.prod
+
+# my-database: # 컴퓨터이름
+#   # platform: linux/x86_64 #데이터베이스 연결 안될때. 활성화
+#   command: --bind-address=0.0.0.0 # 모든 IP에서 연결 허용
+#   image: mysql:latest # 도커파일에 한 줄밖에 없을때는 이렇게. 여러줄이면 04-04 참고
+#   environment:
+#     MYSQL_DATABASE: 'mydocker' # 데이터베이스 자동 생성됨
+#     MYSQL_ROOT_PASSWORD: 'root'
+#   ports:
+#     - 3306:3306
+#-----------------------
+# 실행 명령어
+# docker-compose build
+# docker-compose up
