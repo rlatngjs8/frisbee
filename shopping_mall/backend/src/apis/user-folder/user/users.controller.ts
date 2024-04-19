@@ -16,7 +16,7 @@ export class UsersController {
   ) {}
   @Get()
   @ApiOperation({ summary: '모든 사용자 조회', description: '모든 사용자 정보를 조회합니다.' })
-  @ApiResponse({ status: 200, description: '성공적으로 사용자 정보를 가져옴', type: User, isArray: true })
+  @ApiResponse({ status: 200, description: '성공적으로 모든 사용자 정보를 가져옴', type: User, isArray: true })
   fetchUsers(): Promise<User[]> {
     return this.usersService.findAll();
   }
@@ -26,7 +26,6 @@ export class UsersController {
   @ApiResponse({ status: 200, description: '성공적으로 특정 사용자 정보를 가져옴', type: User })
   async fetchUser(@Param('user_no') user_no: number): Promise<User> {
     const user = await this.usersService.findOne({ user_no });
-    if (!user) throw new Error('사용자를 찾을 수 없습니다.');
     return user;
   }
 
