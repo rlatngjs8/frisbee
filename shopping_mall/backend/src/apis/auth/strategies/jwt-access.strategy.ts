@@ -14,7 +14,7 @@ export class JwtAccessStrategy extends PassportStrategy(Strategy, 'access') {
     console.log('페이로드:', payload); // {sub: 유저아이디}
 
     return {
-      user_id: payload.sub,
+      user_no: payload.sub,
     };
   }
 }

@@ -11,7 +11,7 @@ import {
   IUsersServiceHashedPassword,
   IUsersServiceUpdate,
 } from './interfaces/user-service.interface';
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, HttpException, Injectable } from '@nestjs/common';
 import { EmailService } from './emailService/email.service';
 import { PhoneService } from './phoneService/phone.service';
 
@@ -31,9 +31,12 @@ export class UsersService {
   // 특정 사용자 조회
   async findOne({ user_no }: IUsersServiceFindOne): Promise<User> {
     const result = await this.usersRepository.findOne({ where: { user_no } });
-    if (!result) throw new ConflictException('사용자를 찾을 수 없습니다.', '404');
+    console.log('서비스 유저넘버: ', user_no);
+    console.log(result);
+    if (!result) throw new HttpException('사용자를 찾을 수 없습니다.', 409);
     return result;
   }
+  // 회원 본인 정보 조회
 
   // 사용자 생성
   async create({ createUserInput, profile_img }: IUsersServiceCreate): Promise<User> {
@@ -79,12 +82,14 @@ export class UsersService {
     });
     return result;
   }
+  // 회원 본인 정보 수정
 
   async delete({ user_no }: IUsersServiceDelete): Promise<string> {
     const result = await this.usersRepository.delete({ user_no });
     if (!result) throw new ConflictException('사용자를 찾을 수 없습니다.', '404');
     return '유저 정보가 성공적으로 삭제되었습니다.';
   }
+  // 회원 본인 정보 삭제
 
   // email로 사용자 찾기
   async findOneByEmail({ email }: IUsersServiceFindOneByEmail) {

@@ -43,6 +43,7 @@ export class AuthService {
 
   async logout(response: Response): Promise<void> {
     // 쿠키에서 refreshToken 제거
+    response.clearCookie('accessToken');
     response.clearCookie('refreshToken');
     console.log('로그아웃 성공');
   }
@@ -55,7 +56,7 @@ export class AuthService {
   setRefreshToken({ user, request }: IAuthServiceSetRefreshToken): void {
     // 4. 리프레시 토큰 만들기
     const refreshToken = this.jwtService.sign(
-      { sub: user.user_id }, //
+      { sub: user.user_no }, //
       { secret: process.env.JWT_REFRESH_SECRET, expiresIn: '2w' },
     );
     // 개발환경(http)
@@ -68,7 +69,7 @@ export class AuthService {
   // 엑세스토큰은 세션에 저장되고, 엑세스권한이 있는 api접근시 로그인상태(토큰발급상태)로 요청을 하는지 인증확인
   getAccessToken({ user }: IAuthServiceGetAccessToken): string {
     return this.jwtService.sign(
-      { sub: user.user_id }, //
+      { sub: user.user_no }, //
       { secret: process.env.JWT_ACCESS_SECRET, expiresIn: '2h' },
     );
   }

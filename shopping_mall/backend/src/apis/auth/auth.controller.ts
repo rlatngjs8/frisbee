@@ -5,6 +5,7 @@ import { IOAuthUser } from './interfaces/auth-service.interface';
 import { DynamicAuthGuard } from './guards/dynamic-auth.guard-02';
 import { ApiConsumes, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { LoginInput } from './dto/login.input';
+import { JwtAuthGuard } from './guards/auth.guard';
 
 @Controller()
 @ApiTags('Auth')
@@ -40,5 +41,11 @@ export class AuthController {
     await this.authService.logout(res);
     // 클라이언트에게 "로그아웃 성공" 메시지 반환
     res.status(200).send('로그아웃 성공');
+  }
+
+  @Post('restore-access-token')
+  @UseGuards(JwtAuthGuard('refresh'))
+  restoreAccessToken(@Req() request): string {
+    return this.authService.restoreAccessToken({ user: request.user });
   }
 }

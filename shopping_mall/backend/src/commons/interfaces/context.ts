@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 
 export interface IAuthUser {
-  user?: {
-    user_id: string;
+  user: {
+    user_no: number;
   };
 }
 // RequestWithAuthUser를 정의
@@ -13,6 +13,6 @@ export interface RequestWithAuthUser extends Request {
 }
 
 export interface IContext {
-  req: RequestWithAuthUser;
+  req: Request & IAuthUser;
   res: Response;
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Req, UnauthorizedException, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ApiConsumes, ApiCreatedResponse, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { CreateUserInput } from './dto/create-user.input';
@@ -6,6 +6,8 @@ import { User } from './entities/user.entity';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FilesService } from 'src/apis/files/files.service';
 import { UpdateUserInput } from './dto/update-user.input';
+import { JwtAuthGuard } from 'src/apis/auth/guards/auth.guard';
+import { IContext } from 'src/commons/interfaces/context';
 
 @Controller('user')
 @ApiTags('User API')
@@ -27,6 +29,13 @@ export class UsersController {
   async fetchUser(@Param('user_no') user_no: number): Promise<User> {
     const user = await this.usersService.findOne({ user_no });
     return user;
+  }
+  @Post('profile')
+  @UseGuards(JwtAuthGuard('access'))
+  async getProfile(@Req() request) {
+    console.log('리퀘스트', request.user.user_no);
+    const user_no = request.user.user_no; // 사용자 번호 추출
+    return await this.usersService.findOne({ user_no });
   }
 
   @Post()
