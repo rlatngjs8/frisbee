@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Req, UnauthorizedException, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Req, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ApiConsumes, ApiCreatedResponse, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { CreateUserInput } from './dto/create-user.input';
@@ -7,7 +7,6 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { FilesService } from 'src/apis/files/files.service';
 import { UpdateUserInput } from './dto/update-user.input';
 import { JwtAuthGuard } from 'src/apis/auth/guards/auth.guard';
-import { IContext } from 'src/commons/interfaces/context';
 
 @Controller('user')
 @ApiTags('User API')
@@ -27,11 +26,13 @@ export class UsersController {
   @ApiOperation({ summary: '특정 사용자 조회', description: '특정 사용자 정보를 조회합니다.' })
   @ApiResponse({ status: 200, description: '성공적으로 특정 사용자 정보를 가져옴', type: User })
   async fetchUser(@Param('user_no') user_no: number): Promise<User> {
-    const user = await this.usersService.findOne({ user_no });
-    return user;
+    return await this.usersService.findOne({ user_no });
   }
+
   @Post('profile')
   @UseGuards(JwtAuthGuard('access'))
+  @ApiOperation({ summary: '본인 정보 조회', description: '토큰으로 본인 정보를 조회합니다.' })
+  @ApiResponse({ status: 200, description: '성공적으로 본인 정보를 가져옴', type: User })
   async getProfile(@Req() request) {
     console.log('리퀘스트', request.user.user_no);
     const user_no = request.user.user_no; // 사용자 번호 추출
@@ -41,7 +42,7 @@ export class UsersController {
   @Post()
   @UseInterceptors(FileInterceptor('file'))
   @ApiConsumes('multipart/form-data')
-  @ApiOperation({ summary: '회원가입api', description: '회원가입을 수행하고, 프로필 이미지를 업로드할 수 있습니다.' })
+  @ApiOperation({ summary: '회원가입', description: '회원가입을 수행하고, 프로필 이미지를 업로드할 수 있습니다.' })
   @ApiCreatedResponse({ description: '회원가입완료', type: User })
   async createUser(@Body() createUserInput: CreateUserInput, @UploadedFile() file?: Express.Multer.File): Promise<User> {
     let profile_img: string;
@@ -56,7 +57,7 @@ export class UsersController {
   @Patch(':user_no')
   @UseInterceptors(FileInterceptor('file'))
   @ApiConsumes('multipart/form-data')
-  @ApiOperation({ summary: '회원수정api', description: '회원정보를 수정하고, 프로필 이미지를 업로드할 수 있습니다.' })
+  @ApiOperation({ summary: '회원수정', description: '회원정보를 수정하고, 프로필 이미지를 업로드할 수 있습니다.' })
   @ApiCreatedResponse({ description: '회원정보 수정완료', type: User })
   async updateUser(@Param('user_no') user_no: number, @Body() updateUserInput: UpdateUserInput, @UploadedFile() file?: Express.Multer.File): Promise<User> {
     let profile_img: string;

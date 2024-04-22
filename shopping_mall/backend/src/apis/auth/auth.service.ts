@@ -2,8 +2,8 @@ import { HttpException, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { IAuthServiceGetAccessToken, IAuthServiceLogin, IAuthServiceLoginOAuth, IAuthServiceRestoreAccessToken, IAuthServiceSetRefreshToken } from './interfaces/auth-service.interface';
 import { JwtService } from '@nestjs/jwt';
-import { UsersService } from '../user-folder/user/users.service';
-import { CreateUserInput } from '../user-folder/user/dto/create-user.input';
+import { UsersService } from '../user-folder/users/users.service';
+import { CreateUserInput } from '../user-folder/users/dto/create-user.input';
 import { Response } from 'express';
 
 @Injectable()

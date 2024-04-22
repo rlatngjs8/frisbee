@@ -1,6 +1,6 @@
 import { IAuthUser } from 'src/commons/interfaces/context';
 import { Request, Response } from 'express';
-import { User } from 'src/apis/user-folder/user/entities/user.entity';
+import { User } from 'src/apis/user-folder/users/entities/user.entity';
 
 export interface IAuthServiceLogin {
   user_id: string;

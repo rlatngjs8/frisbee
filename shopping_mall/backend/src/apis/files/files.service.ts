@@ -33,6 +33,8 @@ export class FilesService {
   }
 
   async uploadFiles(files: Express.Multer.File[]): Promise<string[]> {
+    console.log(files);
+
     if (!files || files.length === 0) {
       throw new Error('No files uploaded');
     }
@@ -44,6 +46,29 @@ export class FilesService {
     return Promise.all(uploadPromises);
   }
 
+  private async uploadFileToStorage(file: Express.Multer.File): Promise<string> {
+    const bucketName = 'shopping-mall-storage';
+    const storage = new Storage({
+      projectId: process.env.PROJECT_ID,
+      keyFilename: process.env.KEY_FILE_NAME,
+    });
+    const bucket = storage.bucket(bucketName);
+
+    const blob = bucket.file(file.originalname);
+    const blobStream = blob.createWriteStream();
+
+    return new Promise((resolve, reject) => {
+      blobStream.on('finish', () => {
+        resolve(`${bucketName}/${uuidv4()}/${file.originalname}`);
+      });
+
+      blobStream.on('error', (err) => {
+        reject(err);
+      });
+
+      blobStream.end(file.buffer);
+    });
+  }
   async deleteProfileImg({ profile_img }): Promise<string> {
     const bucketName = 'shopping-mall-storage';
     const storage = new Storage({
@@ -58,30 +83,5 @@ export class FilesService {
 
     await file.delete();
     return 'deleted';
-  }
-
-  private async uploadFileToStorage(file: Express.Multer.File): Promise<string> {
-    const bucketName = 'shopping-mall-storage';
-    const storage = new Storage({
-      projectId: process.env.PROJECT_ID,
-      keyFilename: process.env.KEY_FILE_NAME,
-    });
-    const bucket = storage.bucket(bucketName);
-
-    const folderName = uuidv4();
-    const blob = bucket.file(`${folderName}/${file.originalname}`);
-    const blobStream = blob.createWriteStream();
-
-    return new Promise((resolve, reject) => {
-      blobStream.on('finish', () => {
-        resolve(`${bucketName}/${folderName}/${file.originalname}`);
-      });
-
-      blobStream.on('error', (err) => {
-        reject(err);
-      });
-
-      blobStream.end(file.buffer);
-    });
   }
 }

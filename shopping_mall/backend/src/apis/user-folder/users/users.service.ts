@@ -31,8 +31,6 @@ export class UsersService {
   // 특정 사용자 조회
   async findOne({ user_no }: IUsersServiceFindOne): Promise<User> {
     const result = await this.usersRepository.findOne({ where: { user_no } });
-    console.log('서비스 유저넘버: ', user_no);
-    console.log(result);
     if (!result) throw new HttpException('사용자를 찾을 수 없습니다.', 409);
     return result;
   }

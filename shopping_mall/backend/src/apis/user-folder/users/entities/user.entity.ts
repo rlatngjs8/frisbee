@@ -1,5 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Product_review } from 'src/apis/product-folder/product_reviews/entities/product_review.entity';
+import { Product_review_comment } from 'src/apis/product-folder/products_review_comments/entities/product_review_comment.entity';
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Cart } from '../../carts/entities/cart.entity';
 
 @Entity()
 export class User {
@@ -47,8 +50,14 @@ export class User {
   @ApiProperty({ example: '2024-04-18 01:02:51' })
   createdAt: Date;
 
-  // @OneToOne(() => Cart, (cart) => cart.user_no)
-  // cart: Cart;
+  @OneToMany(() => Product_review, (product_review) => product_review.user_no)
+  product_review: Product_review[];
+
+  @OneToMany(() => Product_review_comment, (product_review_comment) => product_review_comment.user_no)
+  product_review_comment: Product_review_comment[];
+
+  @OneToOne(() => Cart, (cart) => cart.user_no)
+  cart: Cart;
 
   // @OneToMany(() => Order, (order) => order.user_no)
   // order: Order;

@@ -3,14 +3,16 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { UsersModule } from './apis/user-folder/user/users.module';
+import { UsersModule } from './apis/user-folder/users/users.module';
 import { AuthModule } from './apis/auth/auth.module';
+import { ProductsModule } from './apis/product-folder/products/products.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     UsersModule,
     AuthModule,
+    ProductsModule,
     TypeOrmModule.forRoot({
       type: process.env.DATABASE_TYPE as 'mysql', // 디비 종류 선택
       host: process.env.DATABASE_HOST, // 연결할 호스트
