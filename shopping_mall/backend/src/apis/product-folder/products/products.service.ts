@@ -75,4 +75,57 @@ export class ProductsService {
 
     return result;
   }
+
+  async update({ product_no, updateProductInput, product_img, desc_img }) {
+    const { model_name, voltage, release_date, made_country, spec, inquiry, authentication, energy, manufacturer, size, assurance, ...product } = updateProductInput;
+    const product_information = {
+      model_name,
+      voltage,
+      release_date,
+      made_country,
+      spec,
+      inquiry,
+      authentication,
+      energy,
+      manufacturer,
+      size,
+      assurance,
+    };
+
+    await this.productsInformationService.update(product_no, product_information);
+    await this.productImgsService.update(product_no, product_img);
+    await this.descImgsService.update(product_no, desc_img);
+    let updatedSubCategory;
+    if (updateProductInput.sub_category_no) {
+      updatedSubCategory = await this.subCategoriesService.findOne({ sub_category_no: updateProductInput.sub_category_no });
+    }
+    let productToUpdate = await this.productRepository.findOne({ where: { product_no } });
+
+    if (updatedSubCategory) {
+      productToUpdate.subCategory = updatedSubCategory;
+    }
+    productToUpdate = { ...productToUpdate, ...product };
+
+    return await this.productRepository.save(productToUpdate);
+  }
+
+  async delete({ product_no }): Promise<string> {
+    try {
+      // 해당 제품 번호에 대한 이미지를 삭제합니다.
+      await Promise.all([
+        this.productImgsService.delete({ product_no }), //
+        this.descImgsService.delete({ product_no }),
+        this.productsInformationService.delete({ product_no }),
+      ]);
+
+      // 외래 키 제약 조건에 따라 제품을 삭제합니다.
+      await this.productRepository.delete({ product_no });
+
+      return 'deleted';
+    } catch (error) {
+      // 오류 처리
+      console.error('제품 삭제 중 오류 발생:', error);
+      throw error;
+    }
+  }
 }

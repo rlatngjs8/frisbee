@@ -79,7 +79,7 @@ export class UsersController {
     if (user.profile_img !== 'shopping-mall-storage/john_doe.jpeg') {
       const profile_img = user.profile_img;
       console.log('파일명: ', profile_img);
-      await this.filesService.deleteProfileImg({ profile_img });
+      await this.filesService.deleteImage({ filePath: profile_img });
     }
     return await this.usersService.delete({ user_no });
   }
