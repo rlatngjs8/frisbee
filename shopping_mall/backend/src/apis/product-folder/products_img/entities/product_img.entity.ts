@@ -13,7 +13,7 @@ export class Product_img {
   is_main: boolean;
 
   // 상품이미지(1대다 연결)
-  @ManyToOne(() => Product, (product) => product.product_img)
+  @ManyToOne(() => Product, (product) => product.product_img, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'product_no' })
   product_no: Product;
 }

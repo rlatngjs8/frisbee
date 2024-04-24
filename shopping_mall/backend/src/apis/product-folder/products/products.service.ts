@@ -22,7 +22,18 @@ export class ProductsService {
   ) {}
 
   async findAll(): Promise<Product[]> {
-    return await this.productRepository.find();
+    return await this.productRepository.find({
+      relations: [
+        'product_img',
+        'desc_img',
+        'product_information',
+        // 'product_review',
+        // 'product_review.product_review_comment',
+        'subCategory',
+        'subCategory.middleCategory',
+        'subCategory.middleCategory.mainCategory',
+      ],
+    });
   }
 
   async findOne({ product_no }: IProductsServiceFindOne): Promise<Product> {
@@ -30,10 +41,10 @@ export class ProductsService {
       where: { product_no },
       relations: [
         'product_img',
+        'desc_img',
         'product_information',
-        'product_review',
-        'product_review.product_review_comment',
-        'seller',
+        // 'product_review',
+        // 'product_review.product_review_comment',
         'subCategory',
         'subCategory.middleCategory',
         'subCategory.middleCategory.mainCategory',
@@ -99,7 +110,10 @@ export class ProductsService {
     if (updateProductInput.sub_category_no) {
       updatedSubCategory = await this.subCategoriesService.findOne({ sub_category_no: updateProductInput.sub_category_no });
     }
-    let productToUpdate = await this.productRepository.findOne({ where: { product_no } });
+    let productToUpdate = await this.productRepository.findOne({
+      where: { product_no },
+      relations: ['product_img', 'desc_img', 'product_information', 'subCategory', 'subCategory.middleCategory', 'subCategory.middleCategory.mainCategory'],
+    });
 
     if (updatedSubCategory) {
       productToUpdate.subCategory = updatedSubCategory;
@@ -109,21 +123,18 @@ export class ProductsService {
     return await this.productRepository.save(productToUpdate);
   }
 
-  async delete({ product_no }): Promise<string> {
+  async delete(product_no): Promise<string> {
     try {
-      // 해당 제품 번호에 대한 이미지를 삭제합니다.
       await Promise.all([
         this.productImgsService.delete({ product_no }), //
         this.descImgsService.delete({ product_no }),
         this.productsInformationService.delete({ product_no }),
       ]);
 
-      // 외래 키 제약 조건에 따라 제품을 삭제합니다.
       await this.productRepository.delete({ product_no });
 
       return 'deleted';
     } catch (error) {
-      // 오류 처리
       console.error('제품 삭제 중 오류 발생:', error);
       throw error;
     }

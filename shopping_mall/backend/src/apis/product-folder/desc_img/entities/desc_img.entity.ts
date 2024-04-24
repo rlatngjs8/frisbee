@@ -9,7 +9,7 @@ export class Desc_img {
   @Column()
   image_url: string;
 
-  @ManyToOne(() => Product, (product) => product.desc_img)
+  @ManyToOne(() => Product, (product) => product.desc_img, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'product_no' })
   product_no: Product;
 }

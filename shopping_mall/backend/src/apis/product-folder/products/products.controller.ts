@@ -59,6 +59,7 @@ export class ProductsController {
   @ApiOperation({ summary: '상품수정', description: '상품정보를 수정합니다.' })
   @ApiCreatedResponse({ description: '상품수정완료', type: Product })
   async updateProduct(@Param('product_no') product_no: number, @Body() updateProductInput: UpdateProductInput, @UploadedFiles() files: Express.Multer.File[]): Promise<Product> {
+    console.log('업로드 파일', files['product_img']);
     return await this.productsService.update({
       product_no,
       updateProductInput,
@@ -71,6 +72,6 @@ export class ProductsController {
   @ApiOperation({ summary: '상품삭제', description: '상품을 삭제합니다.' })
   @ApiResponse({ status: 200, description: '성공적으로 상품 삭제됨' })
   async deleteProduct(@Param('product_no') product_no: number): Promise<string> {
-    return await this.productsService.delete({ product_no });
+    return await this.productsService.delete(product_no);
   }
 }
