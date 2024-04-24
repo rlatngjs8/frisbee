@@ -1,0 +1,29 @@
+# 1단계 => docker-compose -f docker-compose.prod.yaml build
+# 2단계 => docker-compose -f docker-compose.prod.yaml push
+# 3단계 => kubectl set image deployment/my-backend-project-nestjs my-backend-project-nestjs-sha256-1=asia.gcr.io/utility-time-419409/my-backend-project-nestjs:1.7
+
+steps:
+  # 1단계 => docker-compose -f docker-compose.prod.yaml build
+  - name: docker/compose:1.29.0
+    args:
+      - -f
+      - shopping_mall/backend/docker-compose.prod.yaml
+      - build
+
+  # 2단계 => docker-compose -f docker-compose.prod.yaml push
+  - name: docker/compose:1.29.0
+    args:
+      - -f
+      - shopping_mall/backend/docker-compose.prod.yaml
+      - push
+
+  # 3단계 => kubectl set image deployment/my-backend-project-nestjs my-backend-project-nestjs-sha256-1=asia.gcr.io/utility-time-419409/my-backend-project-nestjs:1.7
+  - name: gcr.io/cloud-builders/kubectl
+    args:
+      - set
+      - image
+      - deployment/shopping-mall-backend
+      - shopping-mall-sha256-1=asia.gcr.io/shopping-mall-420605/shopping-mall:0.1
+    env:
+      - CLOUDSDK_COMPUTE_ZONE=asia-northeast3
+      - CLOUDSDK_CONTAINER_CLUSTER=autopilot-cluster-1
