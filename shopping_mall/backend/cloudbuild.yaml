@@ -23,7 +23,7 @@ steps:
       - set
       - image
       - deployment/shopping-mall-backend
-      - shopping-mall-sha256-1=asia.gcr.io/shopping-mall-420605/shopping-mall:0.1
+      - shopping-mall-sha256-1=asia.gcr.io/shopping-mall-420605/shopping-mall:0.2
     env:
       - CLOUDSDK_COMPUTE_ZONE=asia-northeast3
       - CLOUDSDK_CONTAINER_CLUSTER=autopilot-cluster-1
