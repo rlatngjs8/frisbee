@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   my-backend:
-    image: asia.gcr.io/shopping-mall-420605/shopping-mall:0.6
+    image: asia.gcr.io/shopping-mall-420605/shopping-mall:0.7
     platform: linux/x86_64
     build:
       context: .
